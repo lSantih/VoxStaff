@@ -1,0 +1,14 @@
+name: BoxStaff
+version: '${project.version}'
+main: us.boxpvp.boxstaff.BoxStaff
+authors: [ lSantih ]
+api-version: 1.16
+description: Private plugin developed for McVox
+commands:
+  freeze:
+    description: Froze a player.
+  setfreezelocation:
+    description: Set the location of the freeze area.
+  staffmode:
+    description: Toggles your staff mode.
+    aliases: staff,h,mod
