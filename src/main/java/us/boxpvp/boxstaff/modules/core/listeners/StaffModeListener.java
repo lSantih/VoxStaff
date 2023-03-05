@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.model.BoxListener;
@@ -45,6 +46,7 @@ public class StaffModeListener implements Listener, BoxListener {
         Player player = event.getPlayer();
 
         if (!event.getAction().isRightClick() || !manager.isInStaffMode(player) || event.getItem() == null) return;
+        if(event.getHand() != EquipmentSlot.HAND) return;
 
         final ItemStack item = event.getItem();
         if(manager.getItem(item) == null) return;
@@ -58,6 +60,7 @@ public class StaffModeListener implements Listener, BoxListener {
         Player player = event.getPlayer();
 
         if(!manager.isInStaffMode(player)) return;
+        if(event.getHand() != EquipmentSlot.HAND) return;
 
         final ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 

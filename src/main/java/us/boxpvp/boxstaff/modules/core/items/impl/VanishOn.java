@@ -6,6 +6,7 @@ import us.boxpvp.boxstaff.modules.core.items.IStaffitem;
 import us.boxpvp.boxstaff.modules.core.items.StaffItemContext;
 import us.boxpvp.boxstaff.modules.core.items.StaffItemType;
 import us.boxpvp.boxstaff.modules.core.managers.StaffModeManager;
+import us.boxpvp.boxstaff.modules.vanish.VanishModule;
 import us.boxpvp.boxstaff.util.ItemBuilder;
 import us.boxpvp.boxstaff.util.TypeCallback;
 
@@ -30,6 +31,7 @@ public class VanishOn implements IStaffitem {
     public TypeCallback<StaffItemContext> getAction() {
         return context -> {
             //todo: connect with main core and enable vanish LOL
+            VanishModule.getInstance().getVanishManager().disableVanish(context.clicker());
             StaffModeManager.getItemByClass(VanishOff.class).giveItem(context.clicker());
         };
     }

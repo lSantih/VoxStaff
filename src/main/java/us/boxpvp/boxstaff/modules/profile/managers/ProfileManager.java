@@ -41,6 +41,12 @@ public class ProfileManager {
 
     }
 
+
+
+    public Map<UUID, IProfile> getLoadedProfiles() {
+        return loadedProfiles;
+    }
+
     public IProfile getProfile(final UUID uuid) {
         return loadedProfiles.getOrDefault(uuid, null);
     }

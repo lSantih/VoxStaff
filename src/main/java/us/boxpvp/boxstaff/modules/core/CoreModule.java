@@ -1,12 +1,15 @@
 package us.boxpvp.boxstaff.modules.core;
 
+import org.bukkit.command.CommandExecutor;
 import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.model.BoxCommand;
 import us.boxpvp.boxstaff.model.BoxEvent;
 import us.boxpvp.boxstaff.model.BoxListener;
 import us.boxpvp.boxstaff.modules.IModule;
 import us.boxpvp.boxstaff.modules.ModuleType;
+import us.boxpvp.boxstaff.modules.core.commands.InspectCommand;
 import us.boxpvp.boxstaff.modules.core.commands.StaffModeCommand;
+import us.boxpvp.boxstaff.modules.core.listeners.InventoryListener;
 import us.boxpvp.boxstaff.modules.core.listeners.StaffModeListener;
 import us.boxpvp.boxstaff.modules.core.managers.StaffModeManager;
 
@@ -41,7 +44,8 @@ public class CoreModule implements IModule {
     @Override
     public List<BoxListener> getListeners() {
         return Arrays.asList(
-                new StaffModeListener(BoxStaff.getInstance())
+                new StaffModeListener(BoxStaff.getInstance()),
+                new InventoryListener()
         );
     }
 
@@ -61,6 +65,8 @@ public class CoreModule implements IModule {
     @Override
     public void registerCommands() {
         BoxStaff.getInstance().getCommand("staffmode").setExecutor(new StaffModeCommand(staffModeManager));
+        BoxStaff.getInstance().getCommand("inspect").setExecutor(new InspectCommand());
+
     }
 
     public StaffModeManager getStaffModeManager() {

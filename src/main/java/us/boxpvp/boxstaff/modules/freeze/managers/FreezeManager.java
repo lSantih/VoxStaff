@@ -8,8 +8,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.file.impl.YamlFile;
-import us.boxpvp.boxstaff.model.location.ILocation;
-import us.boxpvp.boxstaff.model.location.impl.SimpleLocation;
+import us.boxpvp.boxstaff.util.location.ILocation;
+import us.boxpvp.boxstaff.util.location.impl.SimpleLocation;
 import us.boxpvp.boxstaff.modules.profile.IProfile;
 import us.boxpvp.boxstaff.util.PlayerUtils;
 
@@ -49,12 +49,12 @@ public class FreezeManager {
         final IProfile profile = plugin.getProfiles().getProfileManager().getProfile(player.getUniqueId());
         if(profile == null) return;
         if(freezeLocation == null) return;
-
         //todo save inventory
+        player.teleport(freezeLocation.getBukkitLocation());
+
         profile.setFrozen(true);
         player.setInvulnerable(true);
         PlayerUtils.clear(player, GameMode.ADVENTURE, false);
-        freezeLocation.teleport(player);
         player.sendMessage("frozen");
     }
 

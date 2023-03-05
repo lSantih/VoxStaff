@@ -1,27 +1,35 @@
-package us.boxpvp.boxstaff.modules.freeze;
+package us.boxpvp.boxstaff.modules.vanish;
 
+import org.bukkit.Bukkit;
 import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.model.BoxCommand;
 import us.boxpvp.boxstaff.model.BoxEvent;
 import us.boxpvp.boxstaff.model.BoxListener;
 import us.boxpvp.boxstaff.modules.IModule;
 import us.boxpvp.boxstaff.modules.ModuleType;
-import us.boxpvp.boxstaff.modules.freeze.commands.FreezeCommand;
-import us.boxpvp.boxstaff.modules.freeze.commands.SetFreezeLocationCommand;
-import us.boxpvp.boxstaff.modules.freeze.listeners.FreezeListener;
-import us.boxpvp.boxstaff.modules.freeze.managers.FreezeManager;
-import us.boxpvp.boxstaff.modules.profile.managers.ProfileManager;
+import us.boxpvp.boxstaff.modules.profile.ProfileModule;
+import us.boxpvp.boxstaff.modules.vanish.commands.VanishCommand;
+import us.boxpvp.boxstaff.modules.vanish.listeners.VanishListener;
+import us.boxpvp.boxstaff.modules.vanish.managers.VanishManager;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class FreezeModule implements IModule {
+public class VanishModule implements IModule {
     private boolean isEnabled = true;
-    private FreezeManager freezeManager;
+
+    private VanishManager vanishManager;
+    private static VanishModule instance;
+
+
     @Override
     public void enableModule() {
-        this.freezeManager = new FreezeManager(BoxStaff.getInstance());
+        instance = this;
+
+        this.vanishManager = new VanishManager(ProfileModule.getInstance().getProfileManager(), BoxStaff.getInstance());
+
         IModule.super.enableModule();
+
     }
 
     @Override
@@ -36,19 +44,20 @@ public class FreezeModule implements IModule {
 
     @Override
     public String getIdentifier() {
-        return "freeze";
+        return "vanish";
     }
 
     @Override
     public List<BoxListener> getListeners() {
         return Arrays.asList(
-                new FreezeListener(freezeManager)
+                new VanishListener(vanishManager, BoxStaff.getInstance())
         );
     }
+
     @Override
     public List<BoxCommand> getCommands() {
         return Arrays.asList(
-
+                new VanishCommand(vanishManager)
         );
     }
 
@@ -60,16 +69,20 @@ public class FreezeModule implements IModule {
 
     @Override
     public void registerCommands() {
-        BoxStaff.getInstance().getCommand("setfreezelocation").setExecutor(new SetFreezeLocationCommand(freezeManager));
-        BoxStaff.getInstance().getCommand("freeze").setExecutor(new FreezeCommand(freezeManager));
+        BoxStaff.getInstance().getCommand("vanish").setExecutor(new VanishCommand(vanishManager));
+    }
+
+    public VanishManager getVanishManager() {
+        return vanishManager;
     }
 
     @Override
     public ModuleType getModuleType() {
-        return ModuleType.FREEZE;
+        return ModuleType.VANISH;
     }
 
-    public FreezeManager getFreezeManager() {
-        return freezeManager;
+
+    public static VanishModule getInstance() {
+        return instance;
     }
 }

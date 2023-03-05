@@ -1,14 +1,10 @@
 package us.boxpvp.boxstaff.modules.profile;
 
-import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.model.BoxCommand;
 import us.boxpvp.boxstaff.model.BoxEvent;
 import us.boxpvp.boxstaff.model.BoxListener;
 import us.boxpvp.boxstaff.modules.IModule;
 import us.boxpvp.boxstaff.modules.ModuleType;
-import us.boxpvp.boxstaff.modules.core.commands.StaffModeCommand;
-import us.boxpvp.boxstaff.modules.core.listeners.StaffModeListener;
-import us.boxpvp.boxstaff.modules.core.managers.StaffModeManager;
 import us.boxpvp.boxstaff.modules.profile.listeners.ProfileListener;
 import us.boxpvp.boxstaff.modules.profile.managers.ProfileManager;
 
@@ -18,9 +14,11 @@ import java.util.List;
 public class ProfileModule implements IModule {
     private boolean isEnabled = true;
     private final ProfileManager profileManager = new ProfileManager();
+    private static ProfileModule instance;
 
     @Override
     public void enableModule() {
+        instance = this;
         IModule.super.enableModule();
         profileManager.cacheAllOnline();
     }
@@ -71,5 +69,9 @@ public class ProfileModule implements IModule {
 
     public ProfileManager getProfileManager() {
         return profileManager;
+    }
+
+    public static ProfileModule getInstance() {
+        return instance;
     }
 }

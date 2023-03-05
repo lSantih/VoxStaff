@@ -13,6 +13,7 @@ public class BoxStaffProfile implements IProfile {
     private final UUID uuid;
     private final Player base;
 
+    private boolean isVanished;
     public BoxStaffProfile(final UUID uuid) {
         this.uuid = uuid;
         this.base = Bukkit.getPlayer(uuid);
@@ -28,6 +29,16 @@ public class BoxStaffProfile implements IProfile {
     }
 
     @Override
+    public boolean isVanished() {
+        return isVanished;
+    }
+
+    @Override
+    public void setVanish(boolean newValue) {
+        this.isVanished = newValue;
+    }
+
+    @Override
     public boolean isInStaffMode() {
         return isInStaffMode;
     }
@@ -40,21 +51,6 @@ public class BoxStaffProfile implements IProfile {
     @Override
     public UUID getUUID() {
         return uuid;
-    }
-
-    @Override
-    public void enableVanish() {
-
-    }
-
-    @Override
-    public void disableVanish() {
-
-    }
-
-    @Override
-    public void toggleVanish() {
-        
     }
 
     @Override

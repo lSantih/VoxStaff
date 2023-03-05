@@ -10,11 +10,10 @@ public interface IProfile {
 
     void setFrozen(boolean newFrozenStatus);
 
-    void enableVanish();
 
-    void disableVanish();
+    boolean isVanished();
 
-    void toggleVanish();
+    void setVanish(final boolean newValue);
 
     boolean isInStaffMode();
 

@@ -12,3 +12,7 @@ commands:
   staffmode:
     description: Toggles your staff mode.
     aliases: staff,h,mod
+  vanish:
+    description: Toggles your vanish status.
+  inspect:
+    description: Inspect a player inventory..

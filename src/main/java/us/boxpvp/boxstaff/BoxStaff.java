@@ -10,6 +10,7 @@ import us.boxpvp.boxstaff.file.FileManager;
 import us.boxpvp.boxstaff.modules.core.listeners.StaffModeListener;
 import us.boxpvp.boxstaff.modules.freeze.FreezeModule;
 import us.boxpvp.boxstaff.modules.profile.ProfileModule;
+import us.boxpvp.boxstaff.modules.vanish.VanishModule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +37,6 @@ public final class BoxStaff extends JavaPlugin {
     }
 
     private void registerEvents() {
-        Bukkit.getPluginManager().registerEvents(new StaffModeListener(this), this);
     }
 
     private void registerCommands() {
@@ -46,7 +46,8 @@ public final class BoxStaff extends JavaPlugin {
         this.modules = Arrays.asList(
                 new CoreModule(),
                 new ProfileModule(),
-                new FreezeModule()
+                new FreezeModule(),
+                new VanishModule()
         );
 
         modules.forEach(IModule::enableModule);
