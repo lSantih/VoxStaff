@@ -13,7 +13,11 @@ public class Compass implements IStaffitem {
     private final ItemStack stack;
 
     public Compass() {
-        this.stack = new ItemBuilder(Material.COMPASS).setName("#FCCA30&lCompass").setLore("&7Right click to pass trough.").toItemStack();
+        this.stack = new ItemBuilder(Material.COMPASS)
+                .setName("#FCCA30&lCompass")
+                .setLore("&7Right click to pass trough.")
+                .setStaffItem(getType().name())
+                .toItemStack();
     }
     @Override
     public ItemStack getStack() {

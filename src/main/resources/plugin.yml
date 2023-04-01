@@ -3,6 +3,8 @@ version: '${project.version}'
 main: us.boxpvp.boxstaff.BoxStaff
 authors: [ lSantih ]
 api-version: 1.16
+depend:
+  - SUtils
 description: Private plugin developed for McVox
 commands:
   freeze:
@@ -16,3 +18,5 @@ commands:
     description: Toggles your vanish status.
   inspect:
     description: Inspect a player inventory..
+  rollback:
+    description: Manages rollback..

@@ -15,7 +15,11 @@ public class VanishOn implements IStaffitem {
     private final ItemStack stack;
 
     public VanishOn() {
-        this.stack = new ItemBuilder(Material.LIME_DYE).setName("#FCCA30&lVanish &7(Enabled)").setLore("&7Right click to disable vanish.").toItemStack();
+        this.stack = new ItemBuilder(Material.LIME_DYE)
+                .setName("#FCCA30&lVanish &7(Enabled)")
+                .setLore("&7Right click to disable vanish.")
+                .setStaffItem(getType().name())
+                .toItemStack();
     }
     @Override
     public ItemStack getStack() {

@@ -55,7 +55,7 @@ public class YamlFile implements IFlatFile {
         this.file = new File(plugin.getDataFolder(), fileName);
         if(!file.exists()) {
             file.getParentFile().mkdirs();
-            if(plugin.getResource(fileName) == null) {
+            if(plugin.getResource(fileName) != null) {
                 plugin.saveResource(fileName, false);
             }else {
                 file.createNewFile();

@@ -2,17 +2,22 @@ package us.boxpvp.boxstaff.modules.core.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.persistence.PersistentDataType;
 import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.modules.core.events.ModeDisableEvent;
 import us.boxpvp.boxstaff.modules.core.events.ModeEnableEvent;
 import us.boxpvp.boxstaff.modules.core.items.IStaffitem;
 import us.boxpvp.boxstaff.model.SavedInventory;
+import us.boxpvp.boxstaff.modules.core.items.StaffItemType;
 import us.boxpvp.boxstaff.modules.core.items.impl.*;
+import us.boxpvp.boxstaff.util.ItemBuilder;
 import us.boxpvp.boxstaff.util.PlayerUtils;
 
+import javax.naming.Name;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +27,8 @@ public class StaffModeManager {
     private static List<IStaffitem> items;
     private final BoxStaff plugin;
     private final Map<UUID, SavedInventory> playersInventory = new HashMap<>();
+
+    private NamespacedKey STAFF_ITEM_KEY = new NamespacedKey(BoxStaff.getInstance(), "VOX_STAFF_ITEM");
 
     public StaffModeManager(final BoxStaff plugin) {
         this.plugin = plugin;
@@ -50,13 +57,17 @@ public class StaffModeManager {
         return null;
     }
 
+    public boolean isStaffModeItem(final ItemStack itemStack) {
+        if(!itemStack.hasItemMeta()) return false;
+
+        return itemStack.getItemMeta().getPersistentDataContainer().has(STAFF_ITEM_KEY);
+    }
+
     public IStaffitem getItem(final ItemStack item) {
-        for (IStaffitem iStaffModeItem : items) {
-            if(iStaffModeItem.getStack().isSimilar(item)) {
-                return iStaffModeItem;
-            }
-        }
-        return null;
+        if(!isStaffModeItem(item)) return null;
+        final String itemType = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "itemIdentifier"), PersistentDataType.STRING);
+
+        return items.stream().filter(stack -> stack.getType() == StaffItemType.valueOf(itemType.toUpperCase())).findFirst().orElse(null);
     }
 
     public void enableMode(final Player player) {
@@ -71,6 +82,10 @@ public class StaffModeManager {
 
         items.forEach(item -> {
             if(item instanceof VanishOff) return;
+            if(item.getType() == StaffItemType.STAFF_LIST) {
+                final ItemStack updatedItem = new ItemBuilder(item.getStack()).setSkullOwner(player.getName()).toItemStack();
+                player.getInventory().setItem(item.getItemSlot(), updatedItem);
+            }
             item.giveItem(player);
         });
 

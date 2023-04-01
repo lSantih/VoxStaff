@@ -13,7 +13,11 @@ public class Freeze implements IStaffitem {
     private final ItemStack stack;
 
     public Freeze() {
-        this.stack = new ItemBuilder(Material.IRON_BARS).setName("#FCCA30&lFreeze").setLore("&7Right click to freeze a player.").toItemStack();
+        this.stack = new ItemBuilder(Material.IRON_BARS)
+                .setName("#FCCA30&lFreeze")
+                .setLore("&7Right click to freeze a player.")
+                .setStaffItem(getType().name())
+                .toItemStack();
     }
     @Override
     public ItemStack getStack() {

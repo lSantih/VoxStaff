@@ -14,7 +14,11 @@ public class Punish implements IStaffitem {
     private final ItemStack stack;
 
     public Punish() {
-        this.stack = new ItemBuilder(Material.ANVIL).setName("#FCCA30&lPunish").setLore("&7Right click on a player to punish him.").toItemStack();
+        this.stack = new ItemBuilder(Material.ANVIL)
+                .setName("#FCCA30&lPunish")
+                .setLore("&7Right click on a player to punish him.")
+                .setStaffItem(getType().name())
+                .toItemStack();
     }
     @Override
     public ItemStack getStack() {

@@ -1,5 +1,6 @@
 package us.boxpvp.boxstaff.modules.core.listeners;
 
+import dev.santih.sutils.inventory.CustomInventoryHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,6 +39,7 @@ public class StaffModeListener implements Listener, BoxListener {
 
     @EventHandler
     private void onInventoryClick(final InventoryClickEvent event) {
+        if(event.getInventory().getHolder() instanceof CustomInventoryHolder) return;
         event.setCancelled(manager.isInStaffMode((Player) event.getWhoClicked()));
     }
 

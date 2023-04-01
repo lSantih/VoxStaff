@@ -10,6 +10,7 @@ import us.boxpvp.boxstaff.file.FileManager;
 import us.boxpvp.boxstaff.modules.core.listeners.StaffModeListener;
 import us.boxpvp.boxstaff.modules.freeze.FreezeModule;
 import us.boxpvp.boxstaff.modules.profile.ProfileModule;
+import us.boxpvp.boxstaff.modules.rollback.RollbackModule;
 import us.boxpvp.boxstaff.modules.vanish.VanishModule;
 
 import java.util.Arrays;
@@ -47,7 +48,8 @@ public final class BoxStaff extends JavaPlugin {
                 new CoreModule(),
                 new ProfileModule(),
                 new FreezeModule(),
-                new VanishModule()
+                new VanishModule(),
+                new RollbackModule()
         );
 
         modules.forEach(IModule::enableModule);

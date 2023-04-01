@@ -18,6 +18,8 @@ public class VanishListener implements Listener, BoxListener {
     @EventHandler
     private void handleJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+        if(player.hasPermission("vostaff.staff")) return;
+
         vanishManager.getVanishedPlayers().forEach(vanished -> {
             player.hidePlayer(boxStaff, vanished);
         });

@@ -3,12 +3,15 @@ package us.boxpvp.boxstaff.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
+import us.boxpvp.boxstaff.BoxStaff;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -93,6 +96,15 @@ public class ItemBuilder {
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(CC.colorize(name));
         is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder setStaffItem(final String id) {
+        ItemMeta meta = is.getItemMeta();
+        meta.getPersistentDataContainer().set(new NamespacedKey(BoxStaff.getInstance(), "VOX_STAFF_ITEM"), PersistentDataType.INTEGER, 0);
+        meta.getPersistentDataContainer().set(new NamespacedKey(BoxStaff.getInstance(), "itemIdentifier"), PersistentDataType.STRING, id);
+
+        is.setItemMeta(meta);
         return this;
     }
 

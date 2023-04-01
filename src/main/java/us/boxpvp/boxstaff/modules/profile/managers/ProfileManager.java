@@ -1,6 +1,8 @@
 package us.boxpvp.boxstaff.modules.profile.managers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
+import us.boxpvp.boxstaff.BoxStaff;
 import us.boxpvp.boxstaff.modules.profile.IProfile;
 import us.boxpvp.boxstaff.modules.profile.events.ProfileLoadEvent;
 import us.boxpvp.boxstaff.modules.profile.events.ProfileUnloadEvent;
@@ -35,13 +37,16 @@ public class ProfileManager {
     }
 
     public void cacheAllOnline() {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            loadProfile(player.getUniqueId());
-        });
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    loadProfile(player.getUniqueId());
+                });
 
+            }
+        }.runTaskLater(BoxStaff.getInstance(), 40L);
     }
-
-
 
     public Map<UUID, IProfile> getLoadedProfiles() {
         return loadedProfiles;

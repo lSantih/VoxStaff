@@ -1,11 +1,11 @@
-package us.boxpvp.boxstaff.model.location.impl;
+package us.boxpvp.boxstaff.util.location.impl;
 
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import us.boxpvp.boxstaff.model.location.ILocation;
+import us.boxpvp.boxstaff.util.location.ILocation;
 
 @AllArgsConstructor
 public class SimpleLocation implements ILocation {

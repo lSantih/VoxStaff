@@ -1,4 +1,4 @@
-package us.boxpvp.boxstaff.model.location;
+package us.boxpvp.boxstaff.util.location;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
